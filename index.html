@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfraCore Solutions – IT Services & DevOps Experts</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #060b18;
+    --bg2: #0c1426;
+    --card: #101d35;
+    --cyan: #00d4ff;
+    --cyan2: #0099bb;
+    --green: #00ff9d;
+    --text: #e8f0fe;
+    --muted: #7a8fa6;
+    --border: rgba(0,212,255,0.15);
+    --ff-head: 'Space Grotesk', sans-serif;
+    --ff-body: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--ff-body);
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(6,11,24,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 64px;
+  }
+  .logo {
+    font-family: var(--ff-head);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--cyan); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+  .nav-cta {
+    background: var(--cyan);
+    color: #060b18 !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--green) !important; color: #060b18 !important; }
+  .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 80px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .hero-content { position: relative; max-width: 740px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--cyan);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.5; transform:scale(1.4); }
+  }
+  h1 {
+    font-family: var(--ff-head);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    color: #fff;
+    margin-bottom: 1.2rem;
+  }
+  h1 .accent { color: var(--cyan); }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 2.2rem;
+    line-height: 1.7;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--cyan);
+    color: #060b18;
+    padding: 0.75rem 1.8rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: var(--ff-head);
+  }
+  .btn-primary:hover { background: var(--green); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.75rem 1.8rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* Terminal */
+  .terminal {
+    margin-top: 3rem;
+    background: #0a111f;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.4rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    color: #8eb4d4;
+    max-width: 520px;
+  }
+  .term-bar {
+    display: flex; gap: 6px; margin-bottom: 10px;
+  }
+  .term-bar span {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .term-bar .r { background: #ff5f57; }
+  .term-bar .y { background: #febc2e; }
+  .term-bar .g { background: #28c840; }
+  .term-line { margin: 2px 0; }
+  .term-line .prompt { color: var(--cyan); }
+  .term-line .cmd { color: #fff; }
+  .term-line .out { color: var(--green); }
+  #typed-text { color: #fff; }
+  .cursor { display: inline-block; width: 8px; height: 14px; background: var(--cyan); vertical-align: text-bottom; animation: blink 1s infinite; }
+  @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+
+  /* ── SECTIONS ── */
+  section { padding: 90px 5%; }
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 0.8rem;
+  }
+  h2 {
+    font-family: var(--ff-head);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .section-desc {
+    color: var(--muted);
+    max-width: 560px;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  /* ── STATS ── */
+  #stats {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 50px 5%;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--ff-head);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--cyan);
+    line-height: 1;
+  }
+  .stat-label { color: var(--muted); font-size: 0.85rem; margin-top: 6px; }
+
+  /* ── SERVICES ── */
+  #services { background: var(--bg); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--green));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .service-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .service-card h3 {
+    font-family: var(--ff-head);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.6rem;
+  }
+  .service-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+  .tag {
+    background: rgba(0,212,255,0.07);
+    border: 1px solid rgba(0,212,255,0.2);
+    color: var(--cyan);
+    font-size: 0.72rem;
+    padding: 3px 9px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+
+  /* ── TECH STACK ── */
+  #stack { background: var(--bg2); }
+  .stack-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .stack-pill {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+    transition: border-color 0.2s, color 0.2s;
+    cursor: default;
+  }
+  .stack-pill:hover { border-color: var(--cyan); color: var(--cyan); }
+  .stack-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); }
+
+  /* ── WHY US ── */
+  #why { background: var(--bg); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .why-card {
+    padding: 1.5rem;
+    border-left: 2px solid var(--cyan);
+    background: rgba(0,212,255,0.03);
+    border-radius: 0 10px 10px 0;
+  }
+  .why-card h4 {
+    font-family: var(--ff-head);
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  .why-card p { color: var(--muted); font-size: 0.88rem; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg2); }
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact-info h2 { margin-bottom: 1rem; }
+  .contact-info p { color: var(--muted); margin-bottom: 2rem; }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-bottom: 1.2rem;
+  }
+  .contact-detail .icon {
+    font-size: 1.3rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .contact-detail .text { font-size: 0.9rem; color: var(--muted); }
+  .contact-detail .text strong { color: var(--text); display: block; font-size: 0.85rem; }
+
+  /* FORM */
+  form {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; margin-bottom: 1.1rem; }
+  .form-group label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--ff-body);
+    font-size: 0.92rem;
+    padding: 0.65rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(122,143,166,0.6); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--cyan); }
+  .form-group select { appearance: none; cursor: pointer; }
+  .form-group select option { background: #101d35; color: var(--text); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .submit-btn {
+    width: 100%;
+    background: var(--cyan);
+    color: #060b18;
+    border: none;
+    border-radius: 8px;
+    padding: 0.85rem;
+    font-family: var(--ff-head);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+    letter-spacing: 0.3px;
+  }
+  .submit-btn:hover { background: var(--green); transform: translateY(-2px); }
+  .submit-btn:active { transform: translateY(0); }
+  .form-status {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: none;
+    text-align: center;
+  }
+  .form-status.success {
+    display: block;
+    background: rgba(0,255,157,0.1);
+    border: 1px solid rgba(0,255,157,0.3);
+    color: var(--green);
+  }
+  .form-status.error {
+    display: block;
+    background: rgba(255,80,80,0.1);
+    border: 1px solid rgba(255,80,80,0.3);
+    color: #ff7070;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #040810;
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer .logo { font-size: 1.1rem; }
+  footer p { color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--cyan); text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 1.5rem 5%; gap: 1.2rem; }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    h1 { letter-spacing: -0.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Infra<span>Core</span> Solutions</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#stack">Tech Stack</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Available for Projects</div>
+    <h1>IT Infrastructure &amp;<br><span class="accent">DevOps Solutions</span><br>That Scale With You</h1>
+    <p class="hero-sub">From cloud architecture to full-stack development — InfraCore Solutions delivers robust, secure, and scalable technology for businesses of all sizes.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Share Your Requirement</a>
+      <a href="#services" class="btn-outline">Explore Services</a>
+    </div>
+    <div class="terminal">
+      <div class="term-bar">
+        <span class="r"></span><span class="y"></span><span class="g"></span>
+      </div>
+      <div class="term-line"><span class="prompt">$ </span><span id="typed-text"></span><span class="cursor"></span></div>
+      <div class="term-line" id="term-out" style="margin-top:4px;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stats-grid">
+    <div><div class="stat-num">50+</div><div class="stat-label">Projects Delivered</div></div>
+    <div><div class="stat-num">30+</div><div class="stat-label">Happy Clients</div></div>
+    <div><div class="stat-num">99.9%</div><div class="stat-label">Uptime SLA</div></div>
+    <div><div class="stat-num">24/7</div><div class="stat-label">Support Available</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label">What We Do</div>
+  <h2>Comprehensive IT Services</h2>
+  <p class="section-desc">End-to-end technology solutions designed to modernise your business infrastructure and accelerate growth.</p>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <span class="service-icon">☁️</span>
+      <h3>Cloud Infrastructure</h3>
+      <p>Design, deploy, and manage scalable cloud environments on AWS, Azure, or GCP. Reduce cost and improve reliability.</p>
+      <div class="service-tags"><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">GCP</span><span class="tag">Terraform</span></div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🔄</span>
+      <h3>DevOps & CI/CD</h3>
+      <p>Automate your development pipeline with CI/CD, containerisation, and infrastructure-as-code for faster releases.</p>
+      <div class="service-tags"><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Jenkins</span><span class="tag">GitHub Actions</span></div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🌐</span>
+      <h3>Web Development</h3>
+      <p>Build fast, modern, and responsive web applications with clean code and great user experience.</p>
+      <div class="service-tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Next.js</span><span class="tag">REST APIs</span></div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🛡️</span>
+      <h3>Cybersecurity</h3>
+      <p>Protect your systems with security audits, penetration testing, firewalls, and compliance frameworks.</p>
+      <div class="service-tags"><span class="tag">Pen Testing</span><span class="tag">VAPT</span><span class="tag">ISO 27001</span></div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🗄️</span>
+      <h3>Database Management</h3>
+      <p>Design, optimise, and maintain databases with high availability, backup strategies, and performance tuning.</p>
+      <div class="service-tags"><span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">Redis</span></div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">📊</span>
+      <h3>IT Consulting</h3>
+      <p>Strategic technology consulting to align your IT roadmap with business goals. Architecture reviews and migration planning.</p>
+      <div class="service-tags"><span class="tag">Architecture</span><span class="tag">Migration</span><span class="tag">Roadmap</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="section-label">Technologies</div>
+  <h2>Our Tech Stack</h2>
+  <p class="section-desc">We work with industry-leading tools and frameworks to deliver production-grade solutions.</p>
+  <div class="stack-grid">
+    <div class="stack-pill"><span class="dot"></span>Linux / Ubuntu</div>
+    <div class="stack-pill"><span class="dot"></span>Docker</div>
+    <div class="stack-pill"><span class="dot"></span>Kubernetes</div>
+    <div class="stack-pill"><span class="dot"></span>Terraform</div>
+    <div class="stack-pill"><span class="dot"></span>Ansible</div>
+    <div class="stack-pill"><span class="dot"></span>Jenkins</div>
+    <div class="stack-pill"><span class="dot"></span>GitHub Actions</div>
+    <div class="stack-pill"><span class="dot"></span>AWS</div>
+    <div class="stack-pill"><span class="dot"></span>Azure</div>
+    <div class="stack-pill"><span class="dot"></span>GCP</div>
+    <div class="stack-pill"><span class="dot"></span>React.js</div>
+    <div class="stack-pill"><span class="dot"></span>Node.js</div>
+    <div class="stack-pill"><span class="dot"></span>Python</div>
+    <div class="stack-pill"><span class="dot"></span>MySQL</div>
+    <div class="stack-pill"><span class="dot"></span>MongoDB</div>
+    <div class="stack-pill"><span class="dot"></span>Prometheus</div>
+    <div class="stack-pill"><span class="dot"></span>Grafana</div>
+    <div class="stack-pill"><span class="dot"></span>Nginx</div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-label">Why InfraCore</div>
+  <h2>Built on Trust & Expertise</h2>
+  <p class="section-desc">We don't just deliver projects — we become a technology partner invested in your long-term success.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <h4>⚡ Fast Turnaround</h4>
+      <p>Agile delivery with quick sprints. We respect your deadlines and keep you updated at every stage.</p>
+    </div>
+    <div class="why-card">
+      <h4>🔒 Security-First</h4>
+      <p>Every solution we build has security baked in from day one — not bolted on afterwards.</p>
+    </div>
+    <div class="why-card">
+      <h4>📞 Dedicated Support</h4>
+      <p>Direct communication with the team that built your system. No ticket black holes — real answers, fast.</p>
+    </div>
+    <div class="why-card">
+      <h4>💡 Transparent Pricing</h4>
+      <p>Clear scopes and fixed quotes. You know exactly what you're paying for with no hidden surprises.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <div class="section-label">Get In Touch</div>
+      <h2>Share Your IT Requirement</h2>
+      <p>Tell us what you need — fill in the form and we'll get back to you within 24 hours with a tailored proposal.</p>
+      <div class="contact-detail">
+        <span class="icon">📧</span>
+        <div class="text">
+          <strong>Email</strong>
+          infracoresolutions0999@gmail.com
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="icon">📍</span>
+        <div class="text">
+          <strong>Location</strong>
+          Nagpur, Maharashtra, India
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="icon">🕐</span>
+        <div class="text">
+          <strong>Response Time</strong>
+          Within 24 hours
+        </div>
+      </div>
+    </div>
+
+    <form id="requirementForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name *</label>
+          <input type="text" id="from_name" placeholder="Rahul Sharma" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" id="phone" placeholder="+91 98765 43210" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="from_email" placeholder="rahul@company.com" required>
+        </div>
+        <div class="form-group">
+          <label>Company Name</label>
+          <input type="text" id="company" placeholder="Your Company Pvt. Ltd.">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Service Required *</label>
+        <select id="service_type" required>
+          <option value="" disabled selected>Select a service</option>
+          <option>Cloud Infrastructure (AWS / Azure / GCP)</option>
+          <option>DevOps & CI/CD Pipeline</option>
+          <option>Web Development (Frontend / Backend)</option>
+          <option>Cybersecurity & VAPT</option>
+          <option>Database Design & Management</option>
+          <option>IT Consulting & Architecture</option>
+          <option>Linux Server Administration</option>
+          <option>Other / Not Sure</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Budget Range</label>
+        <select id="budget">
+          <option value="" disabled selected>Select budget range</option>
+          <option>Below ₹25,000</option>
+          <option>₹25,000 – ₹75,000</option>
+          <option>₹75,000 – ₹2,00,000</option>
+          <option>₹2,00,000 – ₹5,00,000</option>
+          <option>₹5,00,000+</option>
+          <option>Let's Discuss</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Describe Your Requirement *</label>
+        <textarea id="message" placeholder="Please describe your project in detail — what you want to build, current challenges, expected timeline, any specific technologies you prefer..." required></textarea>
+      </div>
+      <button type="button" class="submit-btn" onclick="sendEmail()">
+        🚀 Send My Requirement
+      </button>
+      <div class="form-status" id="formStatus"></div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Infra<span>Core</span> Solutions</div>
+  <p>© 2025 InfraCore Solutions. All rights reserved.</p>
+  <p>Made with ❤️ in Nagpur, India</p>
+</footer>
+
+<script>
+  // ── EMAILJS INIT ──
+  // Replace these with your actual EmailJS credentials
+  const EMAILJS_SERVICE_ID  = 'service_Asad';    // e.g. service_abc123
+  const EMAILJS_TEMPLATE_ID = 'template_k8fcoys';   // e.g. template_xyz789
+  const EMAILJS_PUBLIC_KEY  = 'ikhb7TGL7Q4YlE7US';    // e.g. aBcDeFgHiJkL
+
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  function sendEmail() {
+    const name    = document.getElementById('from_name').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const email   = document.getElementById('from_email').value.trim();
+    const company = document.getElementById('company').value.trim();
+    const service = document.getElementById('service_type').value;
+    const budget  = document.getElementById('budget').value;
+    const message = document.getElementById('message').value.trim();
+    const status  = document.getElementById('formStatus');
+
+    if (!name || !phone || !email || !service || !message) {
+      status.className = 'form-status error';
+      status.textContent = '⚠️ Please fill all required fields.';
+      return;
+    }
+
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = '⏳ Sending...';
+    btn.disabled = true;
+    status.className = 'form-status';
+    status.style.display = 'none';
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      from_name:    name,
+      phone:        phone,
+      from_email:   email,
+      company:      company || 'Not provided',
+      service_type: service,
+      budget:       budget || 'Not specified',
+      message:      message,
+      to_email:     'infracoresolutions0999@gmail.com',
+    })
+    .then(() => {
+      status.className = 'form-status success';
+      status.textContent = '✅ Requirement sent successfully! We will contact you within 24 hours.';
+      document.getElementById('requirementForm').reset();
+      btn.textContent = '🚀 Send My Requirement';
+      btn.disabled = false;
+    })
+    .catch(err => {
+      console.error('EmailJS error:', err);
+      status.className = 'form-status error';
+      status.textContent = '❌ Could not send message. Please email us directly at infracoresolutions0999@gmail.com';
+      btn.textContent = '🚀 Send My Requirement';
+      btn.disabled = false;
+    });
+  }
+
+  // ── NAV TOGGLE ──
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // ── TERMINAL TYPING ──
+  const lines = [
+    { cmd: 'deploy --env production', out: '✓ Deployed to AWS ECS — 0 downtime', delay: 60 },
+    { cmd: 'kubectl get pods --all-namespaces', out: '✓ 12/12 pods Running — healthy', delay: 50 },
+    { cmd: 'run security-scan --target all', out: '✓ 0 critical vulnerabilities found', delay: 55 },
+  ];
+  let li = 0, ci = 0, typing = true;
+
+  function type() {
+    const el  = document.getElementById('typed-text');
+    const out = document.getElementById('term-out');
+    const cur = lines[li];
+
+    if (typing) {
+      if (ci < cur.cmd.length) {
+        el.textContent += cur.cmd[ci++];
+        setTimeout(type, 60 + Math.random() * 40);
+      } else {
+        typing = false;
+        setTimeout(type, 500);
+      }
+    } else {
+      out.innerHTML = `<span class="out">${cur.out}</span>`;
+      setTimeout(() => {
+        el.textContent = '';
+        out.innerHTML = '';
+        ci = 0; typing = true;
+        li = (li + 1) % lines.length;
+        type();
+      }, 2800);
+    }
+  }
+  setTimeout(type, 900);
+</script>
+</body>
+</html>
